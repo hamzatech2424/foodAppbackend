@@ -44,7 +44,6 @@ router.get("/alluser", async (req, res) => {
     if (!allUsers) {
         res.status(400).json({ success: false, message: 'users not found' })
     }
-
     res.status(200).send(allUsers)
 
 })
@@ -92,7 +91,6 @@ router.put("/:id", async (req, res) => {
             apartment: req.body.apartment,
             city: req.body.city,
             isAdmin: req.body.isAdmin
-
         },
         {
             new: true,
@@ -103,9 +101,7 @@ router.put("/:id", async (req, res) => {
     if (!User) {
         return res.status(400).json({ success: false, message: "User is not Updated" })
     }
-
     res.status(200).json({ success: true, message: "User is Updated" })
-
 })
 
 
@@ -121,7 +117,6 @@ router.post("/login", async (req, res) => {
     }
 
     if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
-
         const token = jsonWebToken.sign(
             {
                 user: user.name,
@@ -132,13 +127,15 @@ router.post("/login", async (req, res) => {
                 expiresIn: "1d"
             }
         )
-
-        return res.status(200).json({ success: true, message: "Login Successfully", user: user.email, token: token })
-
+        return res.status(200).json({ success: true, message: "Login Successfully", user: user, token: token })
     }
     else {
         return res.status(400).send("InCorrect Password")
     }
 })
+
+
+
+
 
 module.exports = router
