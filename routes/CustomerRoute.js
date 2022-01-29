@@ -113,7 +113,8 @@ router.post("/login", async (req, res) => {
     const secret = process.env.secret;
 
     if (!user) {
-        return res.status(400).send({ success: false, message: "User Not Found" })
+//         return res.status(400).send({ success: false, message: "User Not Found" })
+        return res.send({ success: false, message: "User Not Found" })
     }
 
     if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
@@ -127,10 +128,12 @@ router.post("/login", async (req, res) => {
                 expiresIn: "1d"
             }
         )
-        return res.status(200).send({ success: true, message: "Login Successfully", user: user, token: token })
+//         return res.status(200).send({ success: true, message: "Login Successfully", user: user, token: token })
+        return res.send({ success: true, message: "Login Successfully", user: user, token: token })
     }
     else {
-        return res.status(400).send({ success: false, message: "Password Incorrect" })
+//         return res.status(400).send({ success: false, message: "Password Incorrect" })
+        return res.send({ success: false, message: "Password Incorrect" })
     }
 })
 
